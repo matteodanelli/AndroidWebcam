@@ -10,7 +10,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
-//Async Task code
+/*
+ * This class download image, set into bitmap of the layout and attach animation.
+ */
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 	ImageView bmImage;
     PhotoViewAttacher mAttacher;
