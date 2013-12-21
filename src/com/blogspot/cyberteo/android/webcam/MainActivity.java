@@ -12,14 +12,13 @@ import android.view.MenuItem;
 public class MainActivity extends Activity{
 
 	private static final int REFRESH = 0;
-	boolean ZOOM = false;
-	private static final String url = "http://www.foto-webcam.eu/webcam/bruneck/current/720.jpg";
+	private static final String url = "http://www.foto-webcam.eu/webcam/bruneck/current/1200.jpg";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		//Download image with asyncTask, set image with photoViewAttacher
 		new DownloadImageTask((ImageView) findViewById(R.id.imageView1)).execute(url);
 		
