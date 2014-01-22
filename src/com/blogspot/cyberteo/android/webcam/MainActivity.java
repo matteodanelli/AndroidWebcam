@@ -1,12 +1,24 @@
 package com.blogspot.cyberteo.android.webcam;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 import com.blogspot.euroteo.webcam.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
+
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
+import android.graphics.Bitmap;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity{
@@ -19,9 +31,11 @@ public class MainActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//Download image with asyncTask, set image with photoViewAttacher
-		new DownloadImageTask((ImageView) findViewById(R.id.imageView1)).execute(url);
-		
+		final ImageView imageView = (ImageView) findViewById(R.id.imageView1);
+		final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		this.setTitle("Bruneck - Brunico");
+
+		loadImage(imageView, progressBar);
 	}
 
 
@@ -39,11 +53,48 @@ public class MainActivity extends Activity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case (REFRESH):
-			Log.d("tag", "refresh");
-			new DownloadImageTask((ImageView) findViewById(R.id.imageView1)).execute(url);
+			final ImageView imageView = (ImageView) findViewById(R.id.imageView1);
+			final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+			loadImage(imageView, progressBar);
 			break;
 		}
 		return false;
+	}
+	
+	private void loadImage(final ImageView imageView, final ProgressBar progressBar) {
+		ImageLoader imageLoader = ImageLoader.getInstance();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        	//TODO
+        	.build();
+        ImageLoader.getInstance().init(config);
+        // Load image, decode it to Bitmap and return Bitmap to callback
+        imageLoader.loadImage(url, null, null, new ImageLoadingListener() { 
+        	@Override
+        	public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                // Set bitmap and attach animation
+                progressBar.setVisibility(View.GONE);
+        		imageView.setImageBitmap(loadedImage);
+        		new PhotoViewAttacher(imageView);
+            }
+			@Override
+			public void onLoadingCancelled(String arg0, View arg1) {
+					// Do nothing
+			}
+			@Override
+			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+				Toast.makeText(getApplicationContext(), "Error loading webcam", Toast.LENGTH_SHORT).show();			
+			}
+			@Override
+			public void onLoadingStarted(String arg0, View arg1) {
+				// Do nothing				
+			}
+        }, new ImageLoadingProgressListener() {
+            @Override
+            public void onProgressUpdate(String imageUri, View view, int current, int total) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
 	}
 
 }
