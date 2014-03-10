@@ -3,7 +3,6 @@ package com.blogspot.cyberteo.android.webcam;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.blogspot.cyberteo.android.webcam.utils.Utils;

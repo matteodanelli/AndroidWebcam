@@ -1,13 +1,12 @@
 package com.blogspot.cyberteo.android.webcam;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import com.blogspot.euroteo.webcam.R;
 import org.apache.http.HttpResponse;
@@ -22,9 +21,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by mattd on 3/10/14.
@@ -75,13 +72,19 @@ public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPr
     protected void onPostExecute(ArrayList<WebcamPreviewData> list) {
         progressBar.setVisibility(View.INVISIBLE);
 
-        WebcamListAdapter adapter = new WebcamListAdapter(context, R.layout.listview_item_webcam, list);
+        final WebcamListAdapter adapter = new WebcamListAdapter(context, R.layout.listview_item_webcam, list);
         webcamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                //TODO: open activity related to that webcam
-            }
-        });
+                //Open activity related to that webcam
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                        String videoUrl = adapter.getItem(position).getLink();
+                        String title = adapter.getItem(position).getTitle();
+                        Intent intent = new Intent(context, WebcamActivity.class);
+                        intent.putExtra("LINK", videoUrl);
+                        intent.putExtra("TITLE", title);
+                        context.startActivity(intent);
+                }
+            });
 
         webcamListView.setAdapter(adapter);
     }

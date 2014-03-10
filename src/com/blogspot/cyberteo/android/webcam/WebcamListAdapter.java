@@ -34,6 +34,8 @@ public class WebcamListAdapter extends ArrayAdapter<WebcamPreviewData> {
         UrlImageViewHelper.setUrlDrawable(thumbnail, getItem(position).getThumb());
         //String reference = getItem(position).getLink();
 
+
+
         return rowView;
     }
 }
