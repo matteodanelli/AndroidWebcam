@@ -39,6 +39,7 @@ public class WebcamActivity extends Activity{
 
         String webcamLink = getIntent().getStringExtra("LINK");
         webcamLink = "http://www.foto-webcam.eu".concat(webcamLink);
+        //Set max resolution for screen resolution 720p
         webcamUrl = webcamLink.concat("current/1200.jpg");
 
         //Set title
