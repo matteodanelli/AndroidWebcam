@@ -13,20 +13,17 @@ import com.blogspot.euroteo.webcam.R;
  */
 public class HomeActivity extends Activity {
 
-    final String WEBCAM_LIST_PAGE = "http://www.foto-webcam.eu";
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         GridView webcamListView = (GridView) findViewById(R.id.webcamListView);
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.webcam_list_on_loading_progress_bar);
 
         //Check if network is enabled
         if (!Utils.isOnline(this)) {
             Toast.makeText(this, R.string.no_connection, Toast.LENGTH_LONG).show();
             } else {
-            new GetWebcamListAsyncTask(this, webcamListView, progressBar).execute(WEBCAM_LIST_PAGE);
+            new GetWebcamListAsyncTask(this, webcamListView).execute();
             }
     }
 }

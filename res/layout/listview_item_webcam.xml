@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/border"  >
+    style="@style/card" >
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="54dp"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:gravity="center"/>
+    <!-- Card visible layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"  >
+
         <ImageView
             android:id="@+id/preview"
-            android:layout_width="160dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:padding="4dp"/>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp"/>
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:gravity="center"  />
+
+    </LinearLayout>
+
+    <!-- Compound view for Shadow  -->
+    <it.gmariotti.cardslib.library.view.component.CardShadowView
+        style="@style/card.shadow_outer_layout"
+        android:id="@+id/card_shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

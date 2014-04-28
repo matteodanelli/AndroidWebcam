@@ -40,17 +40,15 @@ public class WebcamActivity extends Activity{
         //Set max resolution for screen resolution 720p
         webcamUrl = webcamLink.concat("current/1200.jpg");
 
-        //Set title
+        //Set title of the activity
         this.setTitle(getIntent().getStringExtra("TITLE"));
 
-        //loadImage(webcamUrl, imageView, progressBar);
-        Picasso.with(this).load(webcamUrl).into(imageView);
-
+        loadImage(webcamUrl, imageView, progressBar);
     }
 
 
     /*
-     * Menu
+     * Create menu, with an action to share image
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,17 +63,37 @@ public class WebcamActivity extends Activity{
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Manage selection of option in the menu
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case (REFRESH):
-                final ImageView imageView = (ImageView) findViewById(R.id.imageView);
-                final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-                loadImage(webcamUrl, imageView, progressBar);
+                loadImage(webcamUrl, (ImageView) findViewById(R.id.imageView), (ProgressBar) findViewById(R.id.progressBar));
                 break;
         }
         return false;
     }
 
+
+
+
+    // Defines a share intent to initialize the action provider.
+    private Intent getDefaultIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        //TODO: Add Image
+        return intent;
+    }
+
+    /**
+     * Load image using UniversalImageLoader
+     * @param url
+     * @param imageView
+     * @param progressBar
+     */
     private void loadImage(String url, final ImageView imageView, final ProgressBar progressBar) {
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -85,40 +103,31 @@ public class WebcamActivity extends Activity{
         ImageLoader.getInstance().init(config);
         // Load image, decode it to Bitmap and return Bitmap to callback
         imageLoader.loadImage(url, null, null, new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        // Set bitmap and attach animation
-                        progressBar.setVisibility(View.GONE);
-                        imageView.setImageBitmap(loadedImage);
-                        new PhotoViewAttacher(imageView);
-                    }
-                    @Override
-                    public void onLoadingCancelled(String arg0, View arg1) {
-                        // Do nothing
-                    }
-                    @Override
-                    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-                        Toast.makeText(getApplicationContext(), "Error loading webcam", Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onLoadingStarted(String arg0, View arg1) {
-                        // Do nothing
-                    }
-                }, new ImageLoadingProgressListener() {
-                    @Override
-                    public void onProgressUpdate(String imageUri, View view, int current, int total) {
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-                });
-    }
-
-
-    // Defines a share intent to initialize the action provider.
-    private Intent getDefaultIntent() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
-        //TODO: Add Image
-        return intent;
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                // Set bitmap and attach animation
+                progressBar.setVisibility(View.GONE);
+                imageView.setImageBitmap(loadedImage);
+                new PhotoViewAttacher(imageView);
+            }
+            @Override
+            public void onLoadingCancelled(String arg0, View arg1) {
+                // Do nothing
+            }
+            @Override
+            public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+                Toast.makeText(getApplicationContext(), "Error loading webcam", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onLoadingStarted(String arg0, View arg1) {
+                // Do nothing
+            }
+        }, new ImageLoadingProgressListener() {
+            @Override
+            public void onProgressUpdate(String imageUri, View view, int current, int total) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 }

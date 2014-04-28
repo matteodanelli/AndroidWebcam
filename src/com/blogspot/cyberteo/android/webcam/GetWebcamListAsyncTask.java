@@ -28,28 +28,21 @@ import java.util.ArrayList;
  */
 public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPreviewData>, ArrayList<WebcamPreviewData>> {
 
+    final String WEBCAM_LIST_PAGE = "http://www.foto-webcam.eu";
+
     GridView webcamListView;
     Context context;
-    ProgressBar progressBar;
 
-
-    public GetWebcamListAsyncTask(Context context, GridView listView, ProgressBar progressBar) {
+    public GetWebcamListAsyncTask(Context context, GridView listView) {
         this.webcamListView = listView;
         this.context = context;
-        this.progressBar = progressBar;
     }
-
-    @Override
-    protected void onPreExecute() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     protected ArrayList<WebcamPreviewData> doInBackground(String... urls) {
 
         ArrayList<WebcamPreviewData> list = new ArrayList<WebcamPreviewData>();
-        String pageHTML = getInputStreamFromUrl(urls[0]);
+        String pageHTML = getInputStreamFromUrl(WEBCAM_LIST_PAGE);
 
         //Parse HTML and save it to list
         Document doc = Jsoup.parse(pageHTML);
@@ -70,7 +63,6 @@ public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPr
     }
 
     protected void onPostExecute(ArrayList<WebcamPreviewData> list) {
-        progressBar.setVisibility(View.INVISIBLE);
 
         final WebcamListAdapter adapter = new WebcamListAdapter(context, R.layout.listview_item_webcam, list);
         webcamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
