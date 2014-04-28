@@ -1,5 +1,8 @@
 package com.blogspot.cyberteo.android.webcam;
 
+import android.content.Intent;
+import android.widget.*;
+import com.squareup.picasso.Picasso;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 import com.blogspot.euroteo.webcam.R;
@@ -9,16 +12,11 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.view.MenuItem;
 
 /**
@@ -45,7 +43,9 @@ public class WebcamActivity extends Activity{
         //Set title
         this.setTitle(getIntent().getStringExtra("TITLE"));
 
-        loadImage(webcamUrl, imageView, progressBar);
+        //loadImage(webcamUrl, imageView, progressBar);
+        Picasso.with(this).load(webcamUrl).into(imageView);
+
     }
 
 
@@ -56,8 +56,13 @@ public class WebcamActivity extends Activity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        menu.add(0, REFRESH, 0, "Refresh");
-        return true;
+
+        // Set up ShareActionProvider's default share intent
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        ShareActionProvider mShareActionProvider = (ShareActionProvider) shareItem.getActionProvider();
+        mShareActionProvider.setShareIntent(getDefaultIntent());
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -105,6 +110,15 @@ public class WebcamActivity extends Activity{
                         progressBar.setVisibility(View.VISIBLE);
                     }
                 });
+    }
+
+
+    // Defines a share intent to initialize the action provider.
+    private Intent getDefaultIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        //TODO: Add Image
+        return intent;
     }
 
 }

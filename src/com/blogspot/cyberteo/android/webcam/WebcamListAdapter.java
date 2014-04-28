@@ -31,7 +31,8 @@ public class WebcamListAdapter extends ArrayAdapter<WebcamPreviewData> {
         ImageView thumbnail = (ImageView) rowView.findViewById(R.id.preview);
 
         title.setText(getItem(position).getTitle());
-        UrlImageViewHelper.setUrlDrawable(thumbnail, getItem(position).getThumb());
+        //Cache image for 5 minutes
+        UrlImageViewHelper.setUrlDrawable(thumbnail, getItem(position).getThumb(), null, 5000);
         //String reference = getItem(position).getLink();
 
 
