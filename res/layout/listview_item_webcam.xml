@@ -3,36 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    style="@style/card" >
-
-    <!-- Card visible layout -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"  >
+    android:background="@android:color/white" >
 
         <ImageView
             android:id="@+id/preview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="0dp"/>
+            android:padding="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"/>
 
         <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:typeface="serif"
-                android:gravity="center"  />
-
-    </LinearLayout>
-
-    <!-- Compound view for Shadow  -->
-    <it.gmariotti.cardslib.library.view.component.CardShadowView
-        style="@style/card.shadow_outer_layout"
-        android:id="@+id/card_shadow_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:padding="2dp"
+                android:textSize="12dp"
+                android:typeface="normal"
+                android:gravity="center"
+                android:singleLine="true"
+                android:ellipsize="end"/>
 
 </LinearLayout>

@@ -4,7 +4,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="4dp" >
+                android:padding="4dp"
+        android:background="#e1e1e1">
 
     <GridView
         android:id="@+id/webcamListView"
@@ -12,8 +13,8 @@
         android:layout_height="match_parent"
         android:columnWidth="125dp"
         android:numColumns="2"
-        android:verticalSpacing="4dp"
-        android:horizontalSpacing="4dp"
+        android:verticalSpacing="6dp"
+        android:horizontalSpacing="8dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:scrollbars="none" />
