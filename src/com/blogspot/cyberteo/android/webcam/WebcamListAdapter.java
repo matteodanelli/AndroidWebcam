@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.blogspot.euroteo.webcam.R;
 
-
 import java.util.List;
 
 /**
@@ -31,13 +30,11 @@ public class WebcamListAdapter extends ArrayAdapter<WebcamPreviewData> {
         ImageView thumbnail = (ImageView) rowView.findViewById(R.id.preview);
 
         title.setText(getItem(position).getTitle());
-        //Cache image for 5 minutes --> NO MORE APPLICABLE
+
         Picasso.with(parent.getContext())
                 .load(getItem(position).getThumb())
                 .error(R.drawable.nophoto)
                 .into(thumbnail);
-        //UrlImageViewHelper.setUrlDrawable(thumbnail, getItem(position).getThumb(), null, 5000);
-        //String reference = getItem(position).getLink();
 
         return rowView;
     }

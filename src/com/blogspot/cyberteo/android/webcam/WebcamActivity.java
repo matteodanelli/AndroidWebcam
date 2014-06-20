@@ -84,7 +84,14 @@ public class WebcamActivity extends Activity{
     private Intent getDefaultIntent() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
+
         //TODO: Add Image
+        //Bundle extras = new Bundle();
+        //final ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        //imageView.buildDrawingCache();
+        //extras.putParcelable("WEBCAM", imageView.getDrawingCache());
+        //intent.putExtras(extras);
+
         return intent;
     }
 
