@@ -2,15 +2,14 @@ package com.blogspot.cyberteo.android.webcam;
 
 import android.content.Intent;
 import android.widget.*;
-import com.squareup.picasso.Picasso;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-import com.blogspot.euroteo.webcam.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener;
+import com.blogspot.euroteo.webcam.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -24,7 +23,6 @@ import android.view.MenuItem;
  */
 public class WebcamActivity extends Activity{
 
-    private static final int REFRESH = 0;
     private String webcamUrl;
 
     @Override
@@ -70,7 +68,7 @@ public class WebcamActivity extends Activity{
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case (REFRESH):
+            case (R.id.action_refresh):
                 loadImage(webcamUrl, (ImageView) findViewById(R.id.imageView), (ProgressBar) findViewById(R.id.progressBar));
                 break;
         }
@@ -116,7 +114,7 @@ public class WebcamActivity extends Activity{
             }
             @Override
             public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-                Toast.makeText(getApplicationContext(), "Error loading webcam", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.loading_webcam_failed, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onLoadingStarted(String arg0, View arg1) {

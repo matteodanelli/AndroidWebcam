@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import com.blogspot.euroteo.webcam.R;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -20,6 +18,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import android.widget.ProgressBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,10 +32,16 @@ public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPr
 
     GridView webcamListView;
     Context context;
+    ProgressBar progressBar;
 
-    public GetWebcamListAsyncTask(Context context, GridView listView) {
+    public GetWebcamListAsyncTask(Context context, GridView listView, ProgressBar progressBar) {
         this.webcamListView = listView;
         this.context = context;
+        this.progressBar = progressBar;
+    }
+
+    protected void onProgressUpdate(Void progress) {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -64,6 +69,8 @@ public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPr
     }
 
     protected void onPostExecute(ArrayList<WebcamPreviewData> list) {
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         final WebcamListAdapter adapter = new WebcamListAdapter(context, R.layout.listview_item_webcam, list);
         webcamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
