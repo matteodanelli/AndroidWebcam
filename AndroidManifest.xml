@@ -23,7 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.blogspot.cyberteo.android.webcam.WebcamActivity"/>
+        <activity
+                android:name="com.blogspot.cyberteo.android.webcam.WebcamActivity"
+                android:parentActivityName="com.blogspot.cyberteo.android.webcam.HomeActivity" >
+        <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.blogspot.cyberteo.android.webcam.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

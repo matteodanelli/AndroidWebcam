@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Webcam-Übersicht - Foto-Webcam</string>
+    <string name="app_name">Foto-Webcam.eu</string>
     <string name="buttonDownload">Refresh!</string>
     <string name="imageDescription">Webcam Live</string>
     <string name="settings">Settings</string>

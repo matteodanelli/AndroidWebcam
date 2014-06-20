@@ -16,6 +16,7 @@
         android:verticalSpacing="6dp"
         android:horizontalSpacing="8dp"
         android:stretchMode="columnWidth"
-        android:gravity="center" />
+        android:gravity="center"
+        android:scrollbars="none"/>
 
 </RelativeLayout>

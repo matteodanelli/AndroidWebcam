@@ -32,16 +32,10 @@ public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPr
 
     GridView webcamListView;
     Context context;
-    ProgressBar progressBar;
 
-    public GetWebcamListAsyncTask(Context context, GridView listView, ProgressBar progressBar) {
+    public GetWebcamListAsyncTask(Context context, GridView listView) {
         this.webcamListView = listView;
         this.context = context;
-        this.progressBar = progressBar;
-    }
-
-    protected void onProgressUpdate(Void progress) {
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -69,8 +63,6 @@ public class GetWebcamListAsyncTask extends AsyncTask<String, ArrayList<WebcamPr
     }
 
     protected void onPostExecute(ArrayList<WebcamPreviewData> list) {
-
-        progressBar.setVisibility(View.INVISIBLE);
 
         final WebcamListAdapter adapter = new WebcamListAdapter(context, R.layout.listview_item_webcam, list);
         webcamListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

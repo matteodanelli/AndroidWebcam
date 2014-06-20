@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
                 android:id="@+id/title"

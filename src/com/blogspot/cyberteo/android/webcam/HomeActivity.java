@@ -22,13 +22,12 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         GridView webcamListView = (GridView) findViewById(R.id.webcamListView);
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //Check if network is enabled
         if (!Utils.isOnline(this)) {
             Toast.makeText(this, R.string.no_connection, Toast.LENGTH_LONG).show();
             } else {
-            new GetWebcamListAsyncTask(this, webcamListView, progressBar).execute();
+            new GetWebcamListAsyncTask(this, webcamListView).execute();
             }
     }
 
@@ -45,7 +44,6 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         GridView webcamListView = (GridView) findViewById(R.id.webcamListView);
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 
         switch (item.getItemId()) {
@@ -62,7 +60,7 @@ public class HomeActivity extends Activity {
                 if (!Utils.isOnline(this)) {
                     Toast.makeText(this, R.string.no_connection, Toast.LENGTH_LONG).show();
                 } else {
-                    new GetWebcamListAsyncTask(this, webcamListView, progressBar).execute();
+                    new GetWebcamListAsyncTask(this, webcamListView).execute();
                 }
             default:
                 return super.onOptionsItemSelected(item);
